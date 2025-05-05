@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TÜRKBOT</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">TÜRK<span>BOT</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#" id="home-link">ANA SAYFA</a></li>
+                    <li><a href="#" id="devices-link">CİHAZLAR</a></li>
+                    <li><a href="#" id="settings-link">AYARLAR</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button id="login-btn">Giriş Yap</button>
+                <button id="register-btn">Kayıt Ol</button>
+            </div>
+            <button id="logout-btn" style="display:none;">Çıkış Yap</button>
+            <div id="user-greeting" style="display:none;"></div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>TÜRKBOT'a Hoş Geldiniz</h1>
+            <p>Küçük bir çocuğun kurduğu bu şirket, ileride belki de Türkiye'ye önemli bir adım attıracak. Siz de bizimle bu adımda adım atmak isterseniz aşağıdan kaydolun.</p>
+        </div>
+    </section>
+
+    <section class="sponsors" id="sponsors-section">
+        <div class="container">
+            <h2>Sponsorlarımıza Teşekkür Ederiz</h2>
+            <div class="sponsor-list" id="sponsor-list">
+                <!-- Sponsorlar buraya dinamik olarak eklenecek -->
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content container">
+        <section class="comments-section" id="comments-section">
+            <h2>Yorumlar</h2>
+            <div class="comment-form" id="comment-form">
+                <textarea id="comment-text" placeholder="Yorumunuzu buraya yazın..."></textarea>
+                <button id="submit-comment">Yorum Gönder</button>
+            </div>
+            <div class="comments-list" id="comments-list">
+                <!-- Yorumlar buraya dinamik olarak eklenecek -->
+            </div>
+        </section>
+
+        <section class="sponsor-application" id="sponsor-application">
+            <h2>Sponsorluk Başvurusu</h2>
+            <div class="form-group">
+                <label for="company-name">Şirket Adı</label>
+                <input type="text" id="company-name" required>
+            </div>
+            <div class="form-group">
+                <label for="owner-name">Şirket Sahibi Adı</label>
+                <input type="text" id="owner-name" required>
+            </div>
+            <div class="form-group">
+                <label for="sponsor-email">Email Adresi</label>
+                <input type="email" id="sponsor-email" required>
+            </div>
+            <div class="form-group">
+                <label for="sponsor-details">Sponsorluk Detayları</label>
+                <textarea id="sponsor-details" required></textarea>
+            </div>
+            <button id="submit-sponsor">Gönder</button>
+        </section>
+    </main>
+
+    <!-- Ayarlar Modalı (tek ve düzgün olan) -->
+    <div class="modal" id="settings-modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-settings">&times;</span>
+            <h2>Ayarlar</h2>
+            <div class="settings-tabs">
+                <button class="tab-btn active" data-tab="account-settings">Hesap Ayarları</button>
+                <button class="tab-btn" data-tab="comment-settings">Yorum Ayarları</button>
+                <button class="tab-btn" data-tab="admin-settings" id="admin-tab" style="display:none;">Admin Ayarları</button>
+            </div>
+
+            <div class="tab-content active" id="account-settings">
+                <div class="form-group">
+                    <label for="settings-name">Adınız</label>
+                    <input type="text" id="settings-name">
+                </div>
+                <div class="form-group">
+                    <label for="settings-email">Email</label>
+                    <input type="email" id="settings-email">
+                </div>
+                <div class="form-group">
+                    <label for="settings-password">Yeni Şifre (Değiştirmek istemiyorsanız boş bırakın)</label>
+                    <input type="password" id="settings-password">
+                </div>
+                <button id="save-settings">Kaydet</button>
+                <button id="delete-account" class="delete-btn">Hesabı Sil</button>
+            </div>
+
+            <div class="tab-content" id="comment-settings">
+                <h3>Yorumlarım</h3>
+                <div id="user-comments">
+                    <!-- Yorumlar buraya dinamik olarak eklenecek -->
+                </div>
+            </div>
+
+            <div class="tab-content" id="admin-settings">
+                <h3>Kullanıcı Yönetimi</h3>
+                <div id="admin-accounts">
+                    <!-- Kullanıcı listesi buraya eklenecek -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Giriş Modalı -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <h2>Giriş Yap</h2>
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" required>
+            </div>
+            <div class="form-group">
+                <label for="login-password">Şifre</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <button id="confirm-login">Giriş Yap</button>
+            <button id="close-login">İptal</button>
+        </div>
+    </div>
+
+    <!-- Kayıt Modalı -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <h2>Kayıt Ol</h2>
+            <div class="form-group">
+                <label for="register-name">Adınız</label>
+                <input type="text" id="register-name" required>
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" required>
+            </div>
+            <div class="form-group">
+                <label for="register-password">Şifre</label>
+                <input type="password" id="register-password" required>
+            </div>
+            <button id="confirm-register">Kayıt Ol</button>
+            <button id="close-register">İptal</button>
+        </div>
+    </div>
+    <footer style="text-align: center; padding: 20px; background-color: #f5f5f5; margin-top: 40px;">
+    <p>&copy; 2025 TÜRKBOT. Tüm hakları saklıdır.</p>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
