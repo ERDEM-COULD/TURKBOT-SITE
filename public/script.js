@@ -35,6 +35,9 @@ const DOM = {
     adminAccounts: document.getElementById('admin-accounts'),
     tabContents: document.querySelectorAll('.tab-content'),
     tabButtons: document.querySelectorAll('.tab-btn')
+    sponsorCompany: document.getElementById('company-name'),
+    sponsorMessage: document.getElementById('sponsor-details'),
+
 };
 
 // Verileri başlatma fonksiyonu (initializeData tanımı)
