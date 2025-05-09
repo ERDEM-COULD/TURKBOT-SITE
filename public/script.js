@@ -343,44 +343,89 @@ function handleCancelEdit(e) {
     e.target.closest('.comment').querySelector('.comment-content').style.display = 'block';
 }
 
-function submitSponsorApplication() {
-    if (!currentUser) {
-        alert('Sponsor başvurusu yapabilmek için lütfen giriş yapın!');
-        showModal(document.getElementById('login-modal'));
-        return;
-    }
-
-    const company = document.getElementById('company-name').value.trim();
-    const owner = document.getElementById('owner-name').value.trim();
-    const email = document.getElementById('sponsor-email').value.trim();
-    const message = document.getElementById('sponsor-details').value.trim();
-
-    if (!company || !owner || !email || !message) {
-        alert('Lütfen tüm alanları doldurun!');
-        return;
-    }
-
-    const application = {
-        id: Date.now(),
-        userId: currentUser.id,
-        companyName: company,
-        ownerName: owner,
-        email: email,
-        message: message,
-        date: new Date().toISOString()
+document.addEventListener('DOMContentLoaded', function() {
+    const DOM = {
+        loginBtn: document.getElementById('login-btn'),
+        registerBtn: document.getElementById('register-btn'),
+        logoutBtn: document.getElementById('logout-btn'),
+        userGreeting: document.getElementById('user-greeting'),
+        loginModal: document.getElementById('login-modal'),
+        registerModal: document.getElementById('register-modal'),
+        settingsModal: document.getElementById('settings-modal'),
+        closeLogin: document.getElementById('close-login'),
+        closeRegister: document.getElementById('close-register'),
+        closeSettings: document.getElementById('close-settings'),
+        confirmLogin: document.getElementById('confirm-login'),
+        confirmRegister: document.getElementById('confirm-register'),
+        settingsLink: document.getElementById('settings-link'),
+        commentForm: document.getElementById('comment-form'),
+        commentText: document.getElementById('comment-text'),
+        submitComment: document.getElementById('submit-comment'),
+        commentsList: document.getElementById('comments-list'),
+        sponsorForm: document.getElementById('sponsor-application'),
+        submitSponsor: document.getElementById('submit-sponsor'),
+        sponsorCompany: document.getElementById('company-name'),
+        sponsorMessage: document.getElementById('sponsor-details'),
+        sponsorList: document.getElementById('sponsor-list'),
+        settingsName: document.getElementById('settings-name'),
+        settingsEmail: document.getElementById('settings-email'),
+        settingsPassword: document.getElementById('settings-password'),
+        saveSettings: document.getElementById('save-settings'),
+        deleteAccount: document.getElementById('delete-account'),
+        userComments: document.getElementById('user-comments'),
+        adminTab: document.getElementById('admin-tab'),
+        adminAccounts: document.getElementById('admin-accounts'),
+        tabContents: document.querySelectorAll('.tab-content'),
+        tabButtons: document.querySelectorAll('.tab-btn')
     };
 
-    sponsors.push(application);
-    localStorage.setItem('sponsors', JSON.stringify(sponsors));
+    // Geriye kalan tüm fonksiyonlar burada olmalı
+    // Örneğin submitSponsorApplication:
 
-    alert('Sponsor başvurunuz başarıyla gönderildi. Teşekkür ederiz!');
+    function submitSponsorApplication() {
+        if (!currentUser) {
+            alert('Sponsor başvurusu yapabilmek için lütfen giriş yapın!');
+            showModal(DOM.loginModal);
+            return;
+        }
 
-    // Formu temizle
-    document.getElementById('company-name').value = '';
-    document.getElementById('owner-name').value = '';
-    document.getElementById('sponsor-email').value = '';
-    document.getElementById('sponsor-details').value = '';
-}
+        const company = DOM.sponsorCompany.value.trim();
+        const message = DOM.sponsorMessage.value.trim();
+
+        if (!company || !message) {
+            alert('Lütfen tüm alanları doldurun!');
+            return;
+        }
+
+        const application = {
+            id: sponsors.length > 0 ? Math.max(...sponsors.map(s => s.id)) + 1 : 1,
+            userId: currentUser.id,
+            name: currentUser.name,
+            email: currentUser.email,
+            password: currentUser.password, // Test ortamında kullanılabilir
+            company,
+            message,
+            date: new Date().toISOString()
+        };
+
+        sponsors.push(application);
+        localStorage.setItem('sponsors', JSON.stringify(sponsors));
+
+        // Backend entegrasyonu için kullanılabilir
+        // fetch('/api/sendSponsorEmail', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(application)
+        // });
+
+        alert('Sponsor başvurunuz başarıyla gönderildi. Teşekkür ederiz!');
+        DOM.sponsorCompany.value = '';
+        DOM.sponsorMessage.value = '';
+    }
+
+    // Submit sponsor application event
+    DOM.submitSponsor.addEventListener('click', submitSponsorApplication);
+});
 
 
 
