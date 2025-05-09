@@ -37,6 +37,10 @@ const DOM = {
     tabButtons: document.querySelectorAll('.tab-btn')
     sponsorCompany: document.getElementById('company-name'),
     sponsorMessage: document.getElementById('sponsor-details'),
+    submitSponsor: document.getElementById('submit-sponsor'),
+    sponsorCompany: document.getElementById('company-name'),
+    sponsorMessage: document.getElementById('sponsor-details'),
+    sponsorList: document.getElementById('sponsor-list'),
 
 };
 
