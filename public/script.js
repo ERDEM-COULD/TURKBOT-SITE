@@ -24,6 +24,8 @@ const DOM = {
     commentsList: document.getElementById('comments-list'),
     sponsorForm: document.getElementById('sponsor-application'),
     submitSponsor: document.getElementById('submit-sponsor'),
+    sponsorCompany: document.getElementById('company-name'),
+    sponsorMessage: document.getElementById('sponsor-details'),
     sponsorList: document.getElementById('sponsor-list'),
     settingsName: document.getElementById('settings-name'),
     settingsEmail: document.getElementById('settings-email'),
@@ -35,12 +37,6 @@ const DOM = {
     adminAccounts: document.getElementById('admin-accounts'),
     tabContents: document.querySelectorAll('.tab-content'),
     tabButtons: document.querySelectorAll('.tab-btn')
-    sponsorMessage: document.getElementById('sponsor-details'),
-    submitSponsor: document.getElementById('submit-sponsor'),
-    sponsorCompany: document.getElementById('company-name'),
-    sponsorMessage: document.getElementById('sponsor-details'),
-    sponsorList: document.getElementById('sponsor-list'),
-
 };
 
 // Verileri başlatma fonksiyonu (initializeData tanımı)
