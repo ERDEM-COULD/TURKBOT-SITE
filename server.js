@@ -2,9 +2,13 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const bodyParser = require('body-parser');
+const path = require('path'); // 'path' modülünü dahil edelim
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+// Statik dosyaları public klasöründen sunuyoruz
+app.use(express.static(path.join(__dirname, 'public'))); 
 
 app.use(cors());
 app.use(bodyParser.json());
