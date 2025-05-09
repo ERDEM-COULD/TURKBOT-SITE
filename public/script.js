@@ -341,75 +341,45 @@ function handleCancelEdit(e) {
     e.target.closest('.comment').querySelector('.comment-content').style.display = 'block';
 }
 
-// Sponsor işlemleri
-function loadSponsors() {
-    DOM.sponsorList.innerHTML = '';
-    const approvedSponsors = sponsors.filter(s => s.approved);
-    
-    if (approvedSponsors.length === 0) {
-        DOM.sponsorList.innerHTML = '<p class="no-sponsors">Henüz sponsor bulunmamaktadır.</p>';
-        return;
-    }
-    
-    approvedSponsors.forEach(sponsor => {
-        const sponsorElement = document.createElement('div');
-        sponsorElement.className = 'sponsor-card';
-        sponsorElement.innerHTML = `
-            <img src="${sponsor.logo}" alt="${sponsor.companyName}">
-            <h3>${sponsor.companyName}</h3>
-            <p>${sponsor.ownerName}</p>
-        `;
-        DOM.sponsorList.appendChild(sponsorElement);
-    });
-}
-
 function submitSponsorApplication() {
     if (!currentUser) {
         alert('Sponsor başvurusu yapabilmek için lütfen giriş yapın!');
-        showModal(DOM.loginModal);
+        showModal(document.getElementById('login-modal'));
         return;
     }
 
-    const company = DOM.sponsorCompany.value.trim();
-    const message = DOM.sponsorMessage.value.trim();
+    const company = document.getElementById('company-name').value.trim();
+    const owner = document.getElementById('owner-name').value.trim();
+    const email = document.getElementById('sponsor-email').value.trim();
+    const message = document.getElementById('sponsor-details').value.trim();
 
-    if (!company || !message) {
+    if (!company || !owner || !email || !message) {
         alert('Lütfen tüm alanları doldurun!');
         return;
     }
 
     const application = {
-        id: sponsors.length > 0 ? Math.max(...sponsors.map(s => s.id)) + 1 : 1,
+        id: Date.now(),
         userId: currentUser.id,
-        name: currentUser.name,
-        email: currentUser.email,
-        password: currentUser.password, // Not: Test ortamı dışında kullanma
-        company,
-        message,
+        companyName: company,
+        ownerName: owner,
+        email: email,
+        message: message,
         date: new Date().toISOString()
     };
 
     sponsors.push(application);
     localStorage.setItem('sponsors', JSON.stringify(sponsors));
 
-    // Eğer backend varsa bu veriyi oraya gönder:
-    // fetch('/api/sendSponsorEmail', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(application)
-    // });
-
     alert('Sponsor başvurunuz başarıyla gönderildi. Teşekkür ederiz!');
-    DOM.sponsorCompany.value = '';
-    DOM.sponsorMessage.value = '';
-}
 
-    
     // Formu temizle
     document.getElementById('company-name').value = '';
     document.getElementById('owner-name').value = '';
     document.getElementById('sponsor-email').value = '';
     document.getElementById('sponsor-details').value = '';
+}
+
 
 
 // Kullanıcı işlemleri
