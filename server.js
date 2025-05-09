@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path'); // path modülünü buraya ekliyoruz
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
@@ -8,32 +9,32 @@ const PORT = process.env.PORT || 8080;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Bellekte tutacağımız yorumlar (RAM'de geçici olarak)
+// public klasörünü statik dosya olarak sunmak
+app.use(express.static(path.join(__dirname, 'public')));
+
 let comments = [];
-// Statik dosyaları public klasöründen sunuyoruz
-app.use(express.static(path.join(__dirname, 'public'))); 
+
 // Yorumları getir
 app.get('/comments', (req, res) => {
-  res.json(comments); // Bellekteki yorumları döndürüyoruz
+  res.json(comments);
 });
 
 // Yeni yorum ekle
 app.post('/comments', (req, res) => {
   const { userId, content } = req.body;
 
-  // Yeni yorum
   const newComment = {
-    id: Date.now(), // Benzersiz bir id için zaman damgası kullanıyoruz
+    id: Date.now(),
     userId,
     content,
     timestamp: new Date().toISOString(),
   };
 
-  comments.push(newComment); // Yorumları belleğe ekliyoruz
-  res.status(201).json(newComment); // Yorumun kendisini geri gönderiyoruz
+  comments.push(newComment);
+  res.status(201).json(newComment);
 });
 
-// Ana sayfaya yönlendirme (HTML dosyasını sunma)
+// Ana sayfa ve index.html
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
