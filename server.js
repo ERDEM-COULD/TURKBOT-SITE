@@ -12,11 +12,11 @@ app.use(bodyParser.json());
 // public klasörünü statik dosya olarak sunmak
 app.use(express.static(path.join(__dirname, 'public')));
 
-let comments = [];
+let comments = [];  // Yorumlar bellek üzerinde tutulacak
 
 // Yorumları getir
 app.get('/comments', (req, res) => {
-  res.json(comments);
+  res.json(comments);  // Yorumları RAM'den alıp gönderiyoruz
 });
 
 // Yeni yorum ekle
@@ -30,8 +30,8 @@ app.post('/comments', (req, res) => {
     timestamp: new Date().toISOString(),
   };
 
-  comments.push(newComment);
-  res.status(201).json(newComment);
+  comments.push(newComment);  // Yorum RAM'e ekleniyor
+  res.status(201).json(newComment);  // Yeni yorumu geri gönderiyoruz
 });
 
 // Ana sayfa ve index.html
