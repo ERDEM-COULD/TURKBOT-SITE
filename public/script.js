@@ -256,6 +256,21 @@ function loadComments() {
     });
     setupCommentEvents();
 }
+// Yorumları API'den alıyoruz ve sayfada gösteriyoruz
+fetch('/comments')
+  .then(response => response.json())
+  .then(comments => {
+    const commentsList = document.getElementById('comments-list');
+    comments.forEach(comment => {
+      const div = document.createElement('div');
+      div.classList.add('comment');
+      div.textContent = `${comment.userId}: ${comment.content}`;
+      commentsList.appendChild(div);
+    });
+  })
+  .catch(error => {
+    console.error('Yorumlar alınırken bir hata oluştu:', error);
+  });
 
 function createCommentElement(comment, user, canEdit) {
     const commentElement = document.createElement('div');
